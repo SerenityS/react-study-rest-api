@@ -1,6 +1,7 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import axios_api from '../api/axios_api';
+import ArticleHeader from './ArticleHeader';
 
 const Articles = () => {
     const [loading, setLoading] = useState(null);
@@ -14,7 +15,7 @@ const Articles = () => {
                 setArticles(null);
                 setLoading(true);
 
-                const response = await axios.get('/article');
+                const response = await axios_api.get('/article');
                 setArticles(response.data);
             } catch (e) {
                 setError(e);
@@ -31,7 +32,8 @@ const Articles = () => {
     if (!articles) return <div>글이 없습니다.</div>
 
     return (
-        <div >
+        <div>
+            <ArticleHeader />
             <ul>
                 {articles.map(article => (
                     <li key={article.id}>
